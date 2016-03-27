@@ -7,24 +7,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class Calculator extends AppCompatActivity {
 
-    TextView textView;
-    EditText editText;
-    Button button;
+    private TextView textView;
+    private EditText editText;
+    private Button button;
+    private static final DecimalFormat format = new DecimalFormat("###,###.#########");
 
-    int recentOperator = R.id.button_equal;
-    double result;
-    boolean isOperatorKeyPushed;
+    private int recentOperator = R.id.button_equal;
+    private double result;
+    private boolean isOperatorKeyPushed;
 
-    View.OnClickListener buttonListener = new View.OnClickListener() {
+    private View.OnClickListener buttonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             textView.setText(editText.getText().toString());
         }
     };
 
-    View.OnClickListener buttonNumberListener = new View.OnClickListener() {
+    private View.OnClickListener buttonNumberListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Button button = (Button) view;
@@ -38,7 +41,7 @@ public class Calculator extends AppCompatActivity {
         }
     };
 
-    View.OnClickListener buttonOperatorListener = new View.OnClickListener() {
+    private View.OnClickListener buttonOperatorListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Button operatorButton = (Button) view;
@@ -47,7 +50,7 @@ public class Calculator extends AppCompatActivity {
                 result = value;
             } else {
                 result = calc(recentOperator, result, value);
-                editText.setText(String.valueOf(result));
+                editText.setText(format.format(result));
             }
 
             recentOperator = operatorButton.getId();
